@@ -9,6 +9,11 @@ function Navbar() {
             <Link to={"/"}>
             <h2>Home</h2>
             </Link>
+            <ul>
+            <Link to="/add-recipe">
+                <li>Add page</li>
+            </Link>
+            </ul>
         </nav>
     )
     }

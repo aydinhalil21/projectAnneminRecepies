@@ -28,7 +28,7 @@ return (
   {recipes.map((oneRecipe)=>{
     return (
     <li key={oneRecipe.id}>
-      <Link to={`/recipe-page/${oneRecipe.slug}`}>
+      <Link to={`/recipe-page/${oneRecipe.id}`}>
       <h3>{oneRecipe.recipeName}</h3>
       <img src={oneRecipe.image} />
       </Link>

@@ -1,15 +1,16 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 
 function RecipePage() {
-    const {RecipeSlug} = useParams()
+    const {RecipeId} = useParams()
     const [oneRecipe, setOneRecipe] = useState()
     
 
     const getRecipe = async () => {
         try {
-          const response = await fetch(`http://localhost:5000/recipes/${RecipeSlug}`)
+          const response = await fetch(`http://localhost:5000/recipes/${RecipeId}`)
           if (response.ok) {
             const parsed = await response.json()
             setOneRecipe(parsed)
@@ -22,7 +23,7 @@ function RecipePage() {
     
       useEffect(() => {
         getRecipe()
-      }, [RecipeSlug])
+      }, [RecipeId])
 
     return oneRecipe ? (
         <>
@@ -33,7 +34,9 @@ function RecipePage() {
       <br />
       <h3>Directions:</h3>
       <p>{oneRecipe.directions}</p>
+      <Link to={`/edit-recipe/${oneRecipe.id}`}>
       <button type='button'>Edit</button>
+      </Link>
       <button type='button'>delete</button>
         </>
     ) : (

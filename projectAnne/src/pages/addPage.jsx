@@ -1,34 +1,51 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
-function AddPage() {
+const AddPage = ({ isUpdate, recipe }) => {
+    const navigate = useNavigate()
+    console.log(recipe);
 
-    const [recipeName, setRecipeName] = useState('')
-    const [image, setImage] = useState('')
-    const [ingredients, setIngredients] = useState('')
-    const [directions, setDirections] = useState('')
-    const [slug, setSlug] = useState('')
-    const [id, setId] = useState('')
+    const [recipeName, setRecipeName] = useState(isUpdate ? "recipeName" : "")
+    const [image, setImage] = useState(isUpdate ? "image" : "")
+    const [ingredients, setIngredients] = useState(isUpdate ? "ingredients" : "")
+    const [directions, setDirections] = useState(isUpdate ? "directions" : "")
+    const [slug, setSlug] = useState(isUpdate ? "slug" : "")
+    const [id, setId] = useState("")
 
     const onSubmit = async event => {
         event.preventDefault()
         const payload = {recipeName,image,ingredients,directions, slug, id}
 
         try {
-            const response = await fetch("http://localhost:5000/recipes", {
-                method: 'POST',
+            const response = await fetch(`http://localhost:5000/recipes${isUpdate ? `/${recipe.id}` : ''}`, {
+                method: isUpdate ? 'PUT' :  'POST',
                 body: JSON.stringify(payload),
               headers: {
                 'Content-type': 'application/json',
             },
             }
             )
-            {console.log(payload)}
-              console.log(response)
+            console.log(response)
+            if (response.ok) {
+              const updatedRecipe = await response.json()
+              console.log(updatedRecipe)
+              navigate(`/recipe-page/${updatedRecipe.id}`)
+            }
             } catch (error) {
               console.log(error)
             }
         }
+
+        useEffect(() => {
+            if (isUpdate && recipe) {
+              setRecipeName(recipe.recipeName)
+              setImage(recipe.image)
+              setIngredients(recipe.ingredients)
+              setDirections(recipe.directions)
+            }
+          }, [recipe]);
+
 
 
     return (
@@ -54,16 +71,13 @@ function AddPage() {
         <input type="text" name="directions" value={directions} onChange={event => setDirections(event.target.value)} required/>
         </label>
 
-        <label >
-            Recipe name separated by "-"
-        <input type="text" name="slug" value={slug} onChange={event => {setSlug(event.target.value), setId(event.target.value)}} required/>
-        </label>
 
-    <button type="submit">Add Recipe</button>
+    <button type="submit">{isUpdate ? 'Update' : 'Add'}</button>
         </form>
         </>
     )
     }
+
     
     
     

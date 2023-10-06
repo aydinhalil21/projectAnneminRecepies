@@ -22,9 +22,9 @@ function App() {
       <div>
         <Routes>
         <Route path="/" element={<AllRecipesPage/>} />
-        <Route path="/recipe-page/:RecipeSlug" element={<RecipePage/>} />
+        <Route path="/recipe-page/:RecipeId" element={<RecipePage/>} />
         <Route path="/add-recipe" element={<AddPage/>} />
-        <Route path="/edit-recipe" element={<UpdatePage/>} />
+        <Route path="/edit-recipe/:RecipeId" element={<UpdatePage/>} />
         </Routes>
 
       </div>
