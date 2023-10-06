@@ -1,14 +1,14 @@
 import { useState } from 'react'
 
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import addPage from './pages/addPage'
-import allRecepiesPage from './pages/allRecepiesPage'
-/* import feedPage from './pages/feedPage'
-import profilePage from './pages/profilePage' */
-import recepiePage from './pages/recepiePage'
-import updatePage from './pages/updatePage'
+import AddPage from './pages/AddPage'
+import AllRecipesPage from './pages/AllRecipesPage'
+/* import FeedPage from './pages/FeedPage'
+import ProfilePage from './pages/ProfilePage' */
+import RecipePage from './pages/RecipePage'
+import UpdatePage from './pages/UpdatePage'
+import Navbar from './components/Navbar'
 
 
 function App() {
@@ -16,12 +16,15 @@ function App() {
 
   return (
     <>
+    <div>
+    <Navbar/>
+    </div>
       <div>
         <Routes>
-        <Route path="/" element={allRecepiesPage} />
-        <Route path="/recepie-page/:recepieId" element={recepiePage} />
-        <Route path="/add-recepie" element={addPage} />
-        <Route path="/edit-recepie" element={updatePage} />
+        <Route path="/" element={<AllRecipesPage/>} />
+        <Route path="/recipe-page/:RecipeSlug" element={<RecipePage/>} />
+        <Route path="/add-recipe" element={<AddPage/>} />
+        <Route path="/edit-recipe" element={<UpdatePage/>} />
         </Routes>
 
       </div>
