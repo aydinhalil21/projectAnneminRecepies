@@ -10,7 +10,6 @@ function AllRecipesPage() {
       const response = await fetch('http://localhost:5000/recipes')
       if (response.ok) {
         const allRecipes = await response.json()
-        console.log(allRecipes)
         setRecipes(allRecipes)
       }
     } catch (error) {

@@ -1,11 +1,13 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 function RecipePage() {
     const {RecipeId} = useParams()
     const [oneRecipe, setOneRecipe] = useState()
+    const navigate = useNavigate()
     
 
     const getRecipe = async () => {
@@ -14,7 +16,6 @@ function RecipePage() {
           if (response.ok) {
             const parsed = await response.json()
             setOneRecipe(parsed)
-            console.log(parsed)
           }
         } catch (error) {
           console.log(error)
@@ -24,6 +25,21 @@ function RecipePage() {
       useEffect(() => {
         getRecipe()
       }, [RecipeId])
+
+      const handleDelete = async () => {
+        try {
+          const response = await fetch(`http://localhost:5000/recipes/${RecipeId}`, {
+            method: 'DELETE',
+          })
+          if (response.ok) {
+            const parsed = await response.json()
+            console.log(parsed)
+            navigate('/')
+          }
+        } catch (error) {
+          console.log(error)
+        }
+      }
 
     return oneRecipe ? (
         <>
@@ -37,8 +53,8 @@ function RecipePage() {
       <Link to={`/edit-recipe/${oneRecipe.id}`}>
       <button type='button'>Edit</button>
       </Link>
-      <button type='button'>delete</button>
-        </>
+      <button type='button' onClick={handleDelete}>delete</button>
+      </>
     ) : (
         <h1>Loading...</h1>
     )
