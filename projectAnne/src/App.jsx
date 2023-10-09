@@ -4,15 +4,14 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import AddPage from './pages/AddPage'
 import AllRecipesPage from './pages/AllRecipesPage'
-/* import FeedPage from './pages/FeedPage'
-import ProfilePage from './pages/ProfilePage' */
+/* import ProfilePage from './pages/ProfilePage' */
 import RecipePage from './pages/RecipePage'
 import UpdatePage from './pages/UpdatePage'
 import Navbar from './components/Navbar'
+import RandomRecipesPage from './pages/RandomRecipesPage'
 
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -25,6 +24,7 @@ function App() {
         <Route path="/recipe-page/:RecipeId" element={<RecipePage/>} />
         <Route path="/add-recipe" element={<AddPage/>} />
         <Route path="/edit-recipe/:RecipeId" element={<UpdatePage/>} />
+        <Route path="/explore" element={<RandomRecipesPage/>} /> 
         </Routes>
 
       </div>

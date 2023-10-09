@@ -6,12 +6,15 @@ function Navbar() {
 
     return (
         <nav>
-            <Link to={"/"}>
-            <h2>Home</h2>
-            </Link>
             <ul>
+            <Link to={"/"}>
+            <li>My recipes</li>
+            </Link>
             <Link to="/add-recipe">
-                <li>Add page</li>
+                <li>Add recipe</li>
+            </Link>
+            <Link to="/explore">
+                <li>Explore recipes</li>
             </Link>
             </ul>
         </nav>
